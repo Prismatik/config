@@ -1,0 +1,11 @@
+package users
+
+import (
+	"github.com/prismatik/jabba"
+)
+
+var davidbanham = jabba.User{
+	Username: "davidbanham",
+	Sudo:     true,
+	Key:      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDR8GFZuGBxfZ4AIwvX7422AbndCuKwXqwrcnC141LE+kChZlVK5VG9SYQbjSvwthPhZzjTxjdXD9UYgx2FpPid7agQlVSj86trYjOk0yyYiXXfXNMUeC+hqCB1dEcixDQp/XCEvXOzZL6H3hzz31SO/5ShvU4GK37XpfU/3RRGEpePQK1Rddqfg+HJoouIFhOIuKe0xxj5OWC+cYWQWPWJm9uS4q9SuDogdr0LnIcA6LkDdcaAoSJpyCb9fEwlwYVZViwf/lesc/WPNigUaFLdJUxRQ4gjO2asoaOefHhvn8ZzuCP61L8mq3RVN9W6RyQ+Xm+KMZS2aVlgNyomBSsQzH6Pdl9WcAuf3gWYZ38OGKiZuVVCKS5a3d6z1Zno/zPHkRVmx16T3D3IEBzX4dTwhx/WXvprGrme1wuEyY7GUZEVCVhvttgowJA6xV0G75+R0S7oKgxGsPNC9McN/rWlHPfmGDfHbhkF1qJJ3/QSvD9+Efz6pcC/P2krvhQ/yMsPtbILXRv9uvaiWP4gvvOx41XM98sAC4z7IYQ3VgGLoXxhQEaKeAMKQOSj1Rcw7ioFUyrm0N6HDdYOXnZPCU2bbuUoxCbXKpFNm4ZBzYpULWJoivGzWWmgTIeLNgPhr01Ze6tOuq1O+6NSwwdgglhTOQ3Hf9/6SrNliR5DKU5JjQ== david@banham.id.au",
+}

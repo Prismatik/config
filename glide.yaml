@@ -1,0 +1,6 @@
+package: github.com/prismatik/config
+import:
+- package: github.com/prismatik/jabba
+  version: ^1.0.0
+- package: github.com/prismatik/secrets
+  version: ^1.0.0
