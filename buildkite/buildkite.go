@@ -14,7 +14,7 @@ func Go() {
 	jabba.RunOrDie("sudo", "apt-get", "update", "&&", "sudo", "apt-get", "install", "-y", "buildkite-agent")
 	jabba.WriteFile(idRsaFile)
 	jabba.WriteFile(secretFile)
-	jabba.RunOrDie("sudo", "sed", "-i", "\"s/xxx/flingledorp/g\"", "/etc/buildkite-agent/buildkite-agent.cfg")
+	jabba.RunOrDie("sudo", "sed", "-i", "\"s/xxx/"+secrets.Get("buildkite", "agentToken")+"/g\"", "/etc/buildkite-agent/buildkite-agent.cfg")
 	jabba.RunOrDie("sudo", "systemctl", "enable", "buildkite-agent", "&&", "sudo", "systemctl", "start", "buildkite-agent")
 }
 
