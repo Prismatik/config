@@ -6,6 +6,7 @@ import (
 
 func Go() {
 	users := []jabba.User{
+		buildkite-agent,
 		davidbanham,
 		drewshowalter,
 		larlyntanasap,
