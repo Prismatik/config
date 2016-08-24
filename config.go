@@ -7,6 +7,7 @@ import (
 	"github.com/prismatik/config/buildkite"
 	"github.com/prismatik/config/codescreen"
 	"github.com/prismatik/config/docker"
+	"github.com/prismatik/config/elastic"
 	"github.com/prismatik/config/influxdb"
 	"github.com/prismatik/config/postgres"
 	"github.com/prismatik/config/rethinkdb"
@@ -40,6 +41,8 @@ func main() {
 			buildkite.Go()
 		case "docker":
 			docker.Go()
+		case "elastic":
+			elastic.Go()
 		}
 	}
 }
