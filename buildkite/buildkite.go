@@ -8,6 +8,7 @@ import (
 
 func Go() {
 	jabba.AddUser(buildkiteUser)
+	jabba.RunOrDie("sudo", "apt-get", "install", "mcrypt", "-y")
 	jabba.RunOrDie("sudo", "usermod", "--append", "--groups", "sudo", "buildkite-agent")
 	jabba.RunOrDie("sudo", "usermod", "--append", "--groups", "docker", "buildkite-agent")
 	jabba.RunOrDie("sudo", "sh", "-c", "'echo deb https://apt.buildkite.com/buildkite-agent stable main > /etc/apt/sources.list.d/buildkite-agent.list'")
@@ -22,6 +23,7 @@ func Go() {
 		jabba.RunOrDie("sudo", "cp", "/lib/systemd/system/buildkite-agent", "/lib/systemd/system/buildkite-agent-"+s)
 		jabba.RunOrDie("sudo", "systemctl", "enable", "buildkite-agent-"+s, "&&", "sudo", "systemctl", "start", "buildkite-agent-"+s)
 	}
+	jabba.RunOrDie("ssh", "-T", "git@github.com")
 }
 
 var buildkiteSecrets = map[string]string{
