@@ -6,6 +6,7 @@ import (
 	"github.com/prismatik/config/base"
 	"github.com/prismatik/config/buildkite"
 	"github.com/prismatik/config/codescreen"
+	"github.com/prismatik/config/docker"
 	"github.com/prismatik/config/ufw"
 	"strings"
 )
@@ -28,6 +29,8 @@ func main() {
 			codescreen.Go()
 		case "buildkite":
 			buildkite.Go()
+		case "docker":
+			docker.Go()
 		}
 	}
 }
