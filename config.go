@@ -7,6 +7,7 @@ import (
 	"github.com/prismatik/config/buildkite"
 	"github.com/prismatik/config/codescreen"
 	"github.com/prismatik/config/docker"
+	"github.com/prismatik/config/influxdb"
 	"github.com/prismatik/config/ufw"
 	"strings"
 )
@@ -23,6 +24,8 @@ func main() {
 		switch role {
 		case "base":
 			base.Go()
+		case "influxdb":
+			influxdb.Go()
 		case "ufw":
 			ufw.Go()
 		case "codescreen":
