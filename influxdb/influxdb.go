@@ -4,10 +4,22 @@ import (
 	"github.com/prismatik/jabba"
 )
 
+var distro = "trusty"
+
 func Go() {
 	jabba.RunOrDie("wget", "--continue", "http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb", "&&", "sudo", "dpkg", "-i", "influxdb_latest_amd64.deb")
+	distro = jabba.DistroString()
 	jabba.WriteFile(influxConf)
 	jabba.RunOrDie("influxd", "-config", "/opt/influxdb/shared/config.toml")
+}
+
+var influxSource = jabba.File{
+	Path: "/etc/apt/sources.list.d/pgdg.list",
+	Perm: 0644,
+	Vars: map[string]string{
+		"distro": distro,
+	},
+	Template: `deb https://repos.influxdata.com/ubuntu {{.distro}} stable`,
 }
 
 var influxConf = jabba.File{

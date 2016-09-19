@@ -4,13 +4,25 @@ import (
 	"github.com/prismatik/jabba"
 )
 
+var distro = "trusty"
+
 func Go() {
 	jabba.RunOrDie("echo", "'deb http://download.rethinkdb.com/apt `lsb_release -cs` main'", "|", "sudo", "tee", "/etc/apt/sources.list.d/rethinkdb.list")
+	distro = jabba.DistroString()
+	jabba.WriteFile(rethinkSource)
 	jabba.RunOrDie("wget", "-qO-", "https://download.rethinkdb.com/apt/pubkey.gpg", "|", "sudo", "apt-key", "add", "-")
 	jabba.RunOrDie("sudo", "apt-get", "update")
 	jabba.RunOrDie("sudo", "apt-get", "install", "rethinkdb")
 	jabba.WriteFile(rethinkConf)
 	jabba.RunOrDie("sudo", "/etc/init.d/rethinkdb", "restart")
+
+var rethinkSource = jabba.File{
+	Path: "/etc/apt/sources.list.d/rethinkdb.list",
+	Perm: 0644,
+	Vars: map[string]string{
+		"distro": distro,
+	},
+	Template: `deb http://download.rethinkdb.com/apt {{.distro}} main`,
 }
 
 var rethinkConf = jabba.File{

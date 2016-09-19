@@ -4,14 +4,25 @@ import (
 	"github.com/prismatik/jabba"
 )
 
+var distro = "trusty"
+
 func Go() {
 	jabba.RunOrDie("echo", "'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main'", ">", "/etc/apt/sources.list.d/pgdg.list")
 	jabba.RunOrDie("wget", "--quiet", "-O", "-", "https://www.postgresql.org/media/keys/ACCC4CF8.asc", "|", "sudo", "apt-key", "add", "-")
 	jabba.RunOrDie("sudo", "apt-get", "update")
+	distro = jabba.DistroString()
 	jabba.RunOrDie("apt-get", "install", "postgresql-9.3")
 	jabba.WriteFile(pgHba)
 	jabba.WriteFile(postgresConf)
 	jabba.RunOrDie("sudo", "pg_ctl", "reload")
+
+var postgresSource = jabba.File{
+	Path: "/etc/apt/sources.list.d/pgdg.list",
+	Perm: 0644,
+	Vars: map[string]string{
+		"distro": distro,
+	},
+	Template: `deb http://apt.postgresql.org/pub/repos/apt/ {{.distro}} main`,
 }
 
 var pgHba = jabba.File{
