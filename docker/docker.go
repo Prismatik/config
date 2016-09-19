@@ -4,7 +4,10 @@ import (
 	"github.com/prismatik/jabba"
 )
 
+var distro = "trusty"
+
 func Go() {
+	distro = jabba.DistroString()
 	jabba.RunOrDie("sudo", "apt-get", "install", "apt-transport-https", "ca-certificates")
 	jabba.RunOrDie("sudo", "apt-key", "adv", "--keyserver", "hkp://p80.pool.sks-keyservers.net:80", "--recv-keys", "58118E89F3A912897C070ADBF76221572C52609D")
 	jabba.WriteFile(dockerList)
@@ -17,7 +20,10 @@ func Go() {
 }
 
 var dockerList = jabba.File{
-	Path:     "/etc/apt/sources.list.d/docker.list",
-	Perm:     0644,
-	Template: "deb https://apt.dockerproject.org/repo ubuntu-xenial main",
+	Path: "/etc/apt/sources.list.d/docker.list",
+	Perm: 0644,
+	Vars: map[string]string{
+		"distro": distro,
+	},
+	Template: "deb https://apt.dockerproject.org/repo ubuntu-{{.distro}} main",
 }
