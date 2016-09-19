@@ -7,8 +7,12 @@ import (
 var distro = "trusty"
 
 func Go() {
-	jabba.RunOrDie("wget", "--continue", "http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb", "&&", "sudo", "dpkg", "-i", "influxdb_latest_amd64.deb")
 	distro = jabba.DistroString()
+	jabba.WriteFile(influxSource)
+	jabba.RunOrDie("curl", "-sL", "https://repos.influxdata.com/influxdb.key", "|", "sudo", "apt-key", "add", "-")
+	jabba.RunOrDie("source", "/etc/lsb-release")
+	jabba.RunOrDie("apt-get", "update")
+	jabba.RunOrDie("apt-get", "install", "influxdb")
 	jabba.WriteFile(influxConf)
 	jabba.RunOrDie("influxd", "-config", "/opt/influxdb/shared/config.toml")
 }
