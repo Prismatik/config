@@ -1,8 +1,8 @@
 hash: c84ca2d80261af9885a47a954150da3154205535f7edd965cc8611ed7a4a209f
-updated: 2016-08-11T16:40:36.184740278+10:00
+updated: 2016-09-20T10:26:30.890933769+10:00
 imports:
 - name: github.com/prismatik/jabba
-  version: 95ed1a63d1e557a48b7a23108705c2fc35aa516c
+  version: 5b704f6c170aa29668269bbc448980b827823398
 - name: github.com/prismatik/secrets
   version: 39da2d29ff4e22dd7c15ce5cf0b9a921499055d9
 testImports: []
