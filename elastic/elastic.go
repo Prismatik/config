@@ -8,8 +8,9 @@ func Go() {
 	jabba.RunOrDie("sudo", "apt-get", "install", "wget")
 	jabba.RunOrDie("wget", "-qO", "-", "https://packages.elastic.co/GPG-KEY-elasticsearch", "|", "sudo", "apt-key", "add", "-")
 	jabba.RunOrDie("sudo", "apt-get", "install", "apt-transport-https")
-	jabba.RunOrDie("echo", "\"deb https://packages.elastic.co/elasticsearch/5.x/debian stable main\"", "|", "sudo", "tee", "-a", "/etc/apt/sources.list.d/elasticsearch-5.x.list")
-	jabba.RunOrDie("sudo", "apt-get", "update", "&&", "sudo", "apt-get", "install", "elasticsearch")
+	jabba.WriteFile(elasticRepository)
+	jabba.RunOrDie("sudo", "apt-get", "update")
+	jabba.RunOrDie("sudo", "apt-get", "install", "elasticsearch")
 	jabba.WriteFile(elasticYml)
 	jabba.RunOrDie("sudo", "/bin/systemctl", "daemon-reload")
 	jabba.RunOrDie("sudo", "/bin/systemctl", "enable", "elasticsearch.service")
@@ -403,4 +404,13 @@ var elasticYml = jabba.File{
 # it unless you need it is recommended (it is disabled by default).
 #
 #http.jsonp.enable: true`,
+}
+
+var elasticRepository = jabba.File{
+	Path: "/etc/apt/sources.list.d/elasticsearch-5.x.list",
+	Perm: 0644,
+	Vars: map[string]string{
+		"distro": distro,
+	},
+	Template: "deb https://packages.elastic.co/elasticsearch/5.x/debian stable main",
 }
