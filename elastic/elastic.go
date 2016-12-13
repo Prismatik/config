@@ -4,6 +4,8 @@ import (
 	"github.com/prismatik/jabba"
 )
 
+var distro = "trusty"
+
 func Go() {
 	jabba.RunOrDie("sudo", "apt-get", "install", "wget")
 	jabba.RunOrDie("wget", "-qO", "-", "https://packages.elastic.co/GPG-KEY-elasticsearch", "|", "sudo", "apt-key", "add", "-")
